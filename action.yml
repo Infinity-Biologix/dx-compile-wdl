@@ -33,7 +33,7 @@ outputs:
     description: "The id of the DNAnexus project"
 runs:
   using: 'docker'
-  image: 'infinitybiologix/dx-compile-wdl:latest'
+  image: 'docker://infinitybiologix/dx-compile-wdl:latest'
   args:
     - ${{ inputs.project-id }}
     - ${{ inputs.overwrite }}
