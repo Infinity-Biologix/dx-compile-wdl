@@ -8,10 +8,6 @@ inputs:
   project-id:
     description: 'The dnanexus project id in which to dxCompile the app'
     required: true
-  overwrite:
-    description: 'Specify if the existing workflow of the same name in the destination folder will be overwritten'
-    required: true
-    default: 'false'
   workflow-directory:
     description: 'The directory in the repo that contains the workflow'
     required: true
@@ -28,6 +24,21 @@ inputs:
     description: 'The destination in the project to build the workflow'
     required: true
     default: 'workflow'
+  api_token:
+    description: 'DNAnexus API token'
+    required: true
+  apiserver_protocol:
+    description: 'DNAnexus API server protocol'
+    required: true
+    default: 'https'
+  apiserver_host:
+    description: 'DNAnexus API server hostname'
+    required: true
+    default: 'api.dnanexus.com'
+  apiserver_port:
+    description: 'DNAnexus API server port'
+    required: true
+    default: '443'
 outputs:
   project-id:
     description: "The id of the DNAnexus project"
@@ -36,8 +47,12 @@ runs:
   image: 'docker://infinitybiologix/dx-compile-wdl:latest'
   args:
     - ${{ inputs.project-id }}
-    - ${{ inputs.overwrite }}
     - ${{ inputs.workflow-directory }}
     - ${{ inputs.workflow-name }}
     - ${{ inputs.input-json-name }}
     - ${{ inputs.destination-path }}
+  env:
+    DX_SECURITY_CONTEXT: '{"auth_token": "${{ inputs.api_token }}", "auth_token_type": "bearer"}'
+    DX_APISERVER_PROTOCOL: ${{ inputs.apiserver_protocol }}
+    DX_APISERVER_HOST: ${{ inputs.apiserver_host }}
+    DX_APISERVER_PORT: ${{ inputs.apiserver_port }}
