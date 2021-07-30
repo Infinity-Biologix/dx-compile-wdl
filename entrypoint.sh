@@ -13,6 +13,6 @@ echo listing directory: $(ls)
 echo "Changing into applet directory & listing contents"
 cd $2
 ls -alh
-CMD="java -jar /tmp/dxCompiler-2.4.7.jar compile $3 --inputs $4 --project $1 --destination $5"
+CMD="java -jar /dxCompiler.jar compile $3 --inputs $4 --project $1 --destination $5"
 workflow_id=$(eval "$CMD")
 echo ::set-output name=workflow_id::"$workflow_id"
