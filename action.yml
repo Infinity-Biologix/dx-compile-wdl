@@ -1,0 +1,37 @@
+name: 'dxCompile DNAnexus WDL Workflow'
+description: 'dxCompile DNAnexus WDL Workflow to a specified project'
+author: 'alexander.bogdanowicz@infinity-biologix.com'
+branding:
+  icon: 'book'
+  color: 'blue'
+inputs:
+  project-id:
+    description: 'The dnanexus project id in which to dxCompile the app'
+    required: true
+  overwrite:
+    description: 'Specify if the existing workflow of the same name in the destination folder will be overwritten'
+    required: true
+    default: 'false'
+  workflow-directory:
+    description: 'The directory in the repo that contains the workflow'
+    required: true
+    default: '.'
+  workflow-directory:
+    description: 'The name of the wdl in the repo that contains the workflow'
+    required: true
+    default: 'workflow'
+  destination-path:
+    description: 'The destination in the project to build the workflow'
+    required: true
+    default: 'workflow'
+outputs:
+  project-id:
+    description: "The id of the DNAnexus project"
+runs:
+  using: 'docker'
+  image: 'infinitybiologix/dx-compile-wdl:latest'
+  args:
+    - ${{ inputs.project-id }}
+    - ${{ inputs.overwrite }}
+    - ${{ inputs.workflow-directory }}
+    - ${{ inputs.workflow-name }}
