@@ -8,7 +8,7 @@ RUN pip3 install dxpy
 
 WORKDIR /home/action
 
-COPY entrypoint.sh ./entrypoint
+COPY entrypoint.sh ./entrypoint.sh
 COPY cromwell-65.jar /tmp/.
 COPY dxCompiler-2.4.7.jar /tmp/.
 
