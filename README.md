@@ -26,6 +26,23 @@ java -jar ~/cromwell-65.jar run fastqc-agg.wdl --inputs input-json.json --option
 Simply feature this in your github actions as follows:
 
 ```
+name: Push Applet to DNA Nexus
+on: workflow_dispatch
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: dxCompile DNAnexus WDL Workflow
+        uses: Infinity-Biologix/dx-compile-wdl@1.0.5
+        with:
+          project-id: ${{ secrets.PROJECT_ID }}
+          workflow-directory: 'workflow'
+          workflow-name: 'imputation.wdl'
+          input-json-name: 'input-json.dnanexus.json'
+          destination-path: '/workflow'
+          api_token: ${{ secrets.DX_TOKEN }}
 ```
 
 ## Help
