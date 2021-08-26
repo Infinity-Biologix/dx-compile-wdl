@@ -16,10 +16,6 @@ inputs:
     description: 'The name of the wdl in the repo that contains the workflow'
     required: true
     default: 'workflow'
-  input-json-name:
-    description: 'The name of the input-json file in the repo'
-    required: true
-    default: 'workflow'
   destination-path:
     description: 'The destination in the project to build the workflow'
     required: true
@@ -49,7 +45,6 @@ runs:
     - ${{ inputs.project-id }}
     - ${{ inputs.workflow-directory }}
     - ${{ inputs.workflow-name }}
-    - ${{ inputs.input-json-name }}
     - ${{ inputs.destination-path }}
   env:
     DX_SECURITY_CONTEXT: '{"auth_token": "${{ inputs.api_token }}", "auth_token_type": "bearer"}'
